@@ -103,7 +103,42 @@ scp -P <port> -i ~/.ssh/id_ed25519 root@<ip>:/workspace/video-env/out/my-slug.mp
   лучше собрать его из 3–4 коротких сцен и склеить `ffmpeg-skill` (`join.py`), чем ждать один
   гигантский рендер.
 
-## 7. Если что-то не так
+## 7. Проверенный рецепт (реально сработало)
+
+CPU-под 2 vCPU / 4 ГБ, образ `runpod/base:0.7.0-ubuntu2004`, из коробки уже есть git, curl, xz,
+python3 и ffmpeg 4.2 (его заменяет `bootstrap`).
+
+```bash
+# 1. ключ для SSH (один раз): добавить свой публичный ключ в аккаунт
+runpodctl ssh add-key --key-file ~/.ssh/id_ed25519.pub
+
+# 2. под
+runpodctl pod create --compute-type cpu --image runpod/base:0.7.0-ubuntu2004 \
+  --name video-env-render --container-disk-in-gb 30 --ports "22/tcp" --wait --wait-timeout 12m
+
+# 3. адрес
+runpodctl ssh info <pod-id>
+
+# 4. на поде: код + окружение
+git clone --branch <ветка> --depth 1 https://github.com/gorbachevdmitr/video-env.git /root/video-env
+cd /root/video-env && bash scripts/bootstrap.sh && source .bin/env.sh
+
+# 5. рендер — в живой SSH-сессии
+node scripts/render.mjs repo-intro --quality delivery
+```
+
+Замеры на таком поде: `bootstrap` с нуля — ~6 минут (Node, FFmpeg, Chrome, `npm ci`), повторный
+запуск — секунды; рендер 10 с в 1080p `delivery` — **21 секунда**. Контактный лист 8 кадров
+и `ffprobe` пишутся рядом с mp4.
+
+**Не запускайте рендер через `nohup … &`.** HyperFrames отменяет работу, когда родительский
+процесс отцепился: в логе будет `render_cancelled_parent_exited` на 25 %. Рендер держите
+в открытой SSH-сессии (или в `tmux`), а для долгих задач — `tmux new -s render`.
+
+Ключ, добавленный в аккаунт, после работы можно убрать:
+`runpodctl ssh list-keys`, затем `runpodctl ssh remove-key --fingerprint <SHA256:…>`.
+
+## 8. Если что-то не так
 
 | Симптом | Причина | Решение |
 | --- | --- | --- |
