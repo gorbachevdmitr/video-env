@@ -8,7 +8,7 @@
  * next to anything that is missing.
  */
 import { spawnSync } from "node:child_process";
-import { existsSync, statfsSync } from "node:fs";
+import { existsSync, readFileSync, statfsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -109,14 +109,28 @@ if (missingSkills.length === 0) add("ok", "skills", `${SKILLS.length} vendored`)
 else add("fail", "skills", `missing: ${missingSkills.join(", ")}`, "restore .agents/skills from git");
 
 // ---------- Chrome ----------
-const hyperframesBin = path.join(ROOT, "node_modules", ".bin", "hyperframes");
-if (existsSync(hyperframesBin)) {
-  const r = sh(hyperframesBin, ["doctor", "--json"], { timeout: 180000 });
+// Ask the HyperFrames CLI, but run it through node so this works the same on Windows and Linux
+// (the .bin shim is a bash script on POSIX and a .cmd on Windows; neither is spawnable as-is).
+function cliEntry(pkgName) {
+  const pkgJson = path.join(ROOT, "node_modules", pkgName, "package.json");
+  if (!existsSync(pkgJson)) return null;
+  const pkg = JSON.parse(readFileSync(pkgJson, "utf8"));
+  const bin = typeof pkg.bin === "string" ? pkg.bin : pkg.bin && pkg.bin[Object.keys(pkg.bin)[0]];
+  return bin ? path.resolve(path.dirname(pkgJson), bin) : null;
+}
+
+const hyperframesEntry = cliEntry("hyperframes");
+if (hyperframesEntry && existsSync(hyperframesEntry)) {
+  const r = spawnSync(process.execPath, [hyperframesEntry, "doctor", "--json"], {
+    encoding: "utf8",
+    timeout: 180000,
+    env: process.env,
+  });
   let parsed = null;
-  const start = r.out.indexOf("{");
+  const start = (r.stdout ?? "").indexOf("{");
   if (start >= 0) {
     try {
-      parsed = JSON.parse(r.out.slice(start));
+      parsed = JSON.parse(r.stdout.slice(start));
     } catch {
       /* keep null */
     }

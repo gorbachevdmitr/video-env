@@ -78,7 +78,7 @@ git push -u origin main
 ```
 
 Агент сам выберет движок, прочитает нужный `SKILL.md`, прогонит `check` и `snapshot`, положит
-всё в `videos/<slug>/` и допишет `video.json`.
+всё в `videos/<slug>/` и допишет `video.json`. Готовые формулировки — [docs/PROMPTS.md](docs/PROMPTS.md).
 
 ### 4. Отрендерить на RunPod
 
@@ -102,6 +102,16 @@ node scripts/smoke.mjs
 
 `smoke` рендерит оба примера в `out/` в черновом качестве — если он зелёный, среда живая.
 
+## Что уже проверено
+
+| Проверка | Результат |
+| --- | --- |
+| `videos/hello` (HyperFrames, 5 с, 1080p30) | `check`: 0 ошибок; рендер 26 с на 4-ядерном ноутбуке |
+| `videos/hello-remotion` (Remotion, 5 с) | `tsc --noEmit` чисто; рендер 14 с в 540p |
+| `templates/hyperframes` (3 сцены, 12 с) | `check`: 0 ошибок, 0 предупреждений; рендер 44 с |
+| `ffmpeg-skill` (`probe.py`, `look.py`) | работают на Python 3.14 и на результате рендера |
+| Чистый `git clone` + `npm ci` + `node scripts/smoke.mjs` | проходит без локальных артефактов |
+
 ## Структура
 
 | Путь | Назначение |
@@ -112,7 +122,7 @@ node scripts/smoke.mjs
 | `templates/remotion/` | Скелет React-ролика |
 | `.agents/skills/` | Вендоренные скиллы (7 штук) |
 | `scripts/` | `bootstrap`, `doctor`, `check`, `render`, `new-video`, `smoke` |
-| `docs/` | RunPod-рецепт и учёт вендоренных версий |
+| `docs/` | [RunPod-рецепт](docs/RUNPOD.md), [промпты](docs/PROMPTS.md), [учёт вендоренных версий](docs/VENDOR.md) |
 | `out/` | Результаты рендера (в git не попадает) |
 
 ## Как проверяется, что ролик готов

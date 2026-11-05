@@ -24,8 +24,17 @@ if (res.status !== 0) {
   process.exit(1);
 }
 
-const start = res.stdout.indexOf("[");
-const results = start >= 0 ? JSON.parse(res.stdout.slice(start)) : [];
+// The JSON summary is the last line that starts with "[" — renderer progress is also on stdout.
+const match = res.stdout.match(/^\[[\s\S]*\]\s*$/m);
+let results = [];
+if (match) {
+  try {
+    results = JSON.parse(match[0]);
+  } catch {
+    console.error("\n✗ smoke test: could not parse the render summary");
+    process.exit(1);
+  }
+}
 console.log("\nSmoke summary");
 for (const r of results) {
   const sheet = r.contactSheet && existsSync(path.join(ROOT, r.contactSheet)) ? " + sheet" : "";
