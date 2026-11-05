@@ -1,0 +1,33 @@
+<template>
+<style>
+@font-face {font-family:Display;src:url('assets/fonts/display.ttf')}
+#root {position:absolute;inset:0;background:#0b0c10;color:#f5f6f7;font-family:Display;overflow:hidden}
+.layout {position:absolute;inset:130px 192px;display:flex;flex-direction:column;justify-content:center}
+.header {position:absolute;top:0;left:0;font-size:30px;letter-spacing:5px;color:#ffd166}
+.number {position:absolute;top:0;right:0;font-size:30px;color:#9aa3b2}
+.title {font-size:106px;line-height:1.24;letter-spacing:-4px;margin:0}
+.accent {color:#ffd166}
+.label {font-size:30px;color:#9aa3b2;margin-top:46px;letter-spacing:1px}
+.rule {height:6px;background:#ffd166;width:180px;margin-bottom:42px;transform-origin:left}
+.footer {position:absolute;bottom:0;left:0;right:0;height:3px;background:#2b2d33}
+.progress {height:3px;background:#ffd166;transform-origin:left}
+</style>
+<div id="root" data-composition-id="pod" data-duration="3.4" data-width="1920" data-height="1080" data-composition-variables='[{"id":"pod-line1","type":"string","label":"Title line","default":"Создавай здесь."},{"id":"pod-line2","type":"string","label":"Title line","default":"Рендерь на поде."}]'>
+<div id="pod-clip" class="clip" data-start="0" data-duration="3.4"><div class="layout" id="pod-layout">
+<div class="header">VIDEO-ENV / →</div><div class="number">03 / 03</div>
+<div class="rule" id="pod-rule"></div>
+<h1 class="title" id="pod-title"><span data-var-text="pod-line1">Создавай здесь.</span><br><span class="accent" data-var-text="pod-line2">Рендерь на поде.</span></h1>
+<div class="label" id="pod-label">video-env → RunPod</div>
+<div class="footer"><div class="progress" id="pod-progress"></div></div>
+</div></div></div>
+<script>
+(function() {
+const tl=gsap.timeline({paused:true});
+tl.fromTo('#pod-rule',{scaleX:0},{scaleX:1,duration:.45,ease:'power3.inOut'},0);
+tl.fromTo('#pod-title',{opacity:0,y:28},{opacity:1,y:0,duration:.55,ease:'power4.out'},.12);
+tl.fromTo('#pod-label',{opacity:0},{opacity:1,duration:.35},.5);
+tl.fromTo('#pod-progress',{scaleX:0},{scaleX:1,duration:3.35,ease:'none'},0);
+
+window.__timelines=window.__timelines||{};window.__timelines['pod']=tl;
+})();
+</script></template>
