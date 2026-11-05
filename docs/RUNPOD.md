@@ -22,7 +22,7 @@ GPU-под имеет смысл только если вы параллельн
 
 ```bash
 cd /workspace
-git clone https://github.com/<вы>/video-env.git
+git clone https://github.com/gorbachevdmitr/video-env.git
 cd video-env
 bash scripts/bootstrap.sh
 ```

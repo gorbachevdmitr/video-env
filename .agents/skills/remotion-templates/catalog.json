@@ -1,0 +1,577 @@
+{
+  "upstream": "https://github.com/reactvideoeditor/remotion-templates",
+  "license": "MIT",
+  "count": 81,
+  "note": "Self-contained components with hardcoded demo content. Copy, then edit copy/data/colors.",
+  "components": [
+    {
+      "name": "Bar Chart",
+      "file": "chart-animation.tsx",
+      "slug": "chart-animation",
+      "category": "Charts & Data",
+      "description": "Animated SVG bar chart with staggered bar growth"
+    },
+    {
+      "name": "Line Chart",
+      "file": "line-chart.tsx",
+      "slug": "line-chart",
+      "category": "Charts & Data",
+      "description": "SVG polyline drawing left-to-right with data points"
+    },
+    {
+      "name": "Pie Chart",
+      "file": "pie-chart.tsx",
+      "slug": "pie-chart",
+      "category": "Charts & Data",
+      "description": "Segmented circle with sequential segment reveals"
+    },
+    {
+      "name": "Donut Chart",
+      "file": "donut-chart.tsx",
+      "slug": "donut-chart",
+      "category": "Charts & Data",
+      "description": "Ring chart with animated segments and centre metric"
+    },
+    {
+      "name": "Area Chart",
+      "file": "area-chart.tsx",
+      "slug": "area-chart",
+      "category": "Charts & Data",
+      "description": "Gradient-filled area under a line, revealing left to right"
+    },
+    {
+      "name": "Progress Bars",
+      "file": "progress-bars.tsx",
+      "slug": "progress-bars",
+      "category": "Charts & Data",
+      "description": "Horizontal bars filling to different widths"
+    },
+    {
+      "name": "Stat Counter",
+      "file": "stat-counter.tsx",
+      "slug": "stat-counter",
+      "category": "Charts & Data",
+      "description": "Large number counting up with comma formatting"
+    },
+    {
+      "name": "Comparison Chart",
+      "file": "comparison-chart.tsx",
+      "slug": "comparison-chart",
+      "category": "Charts & Data",
+      "description": "Side-by-side before/after metric comparison"
+    },
+    {
+      "name": "Circular Progress",
+      "file": "circular-progress.tsx",
+      "slug": "circular-progress",
+      "category": "Charts & Data",
+      "description": "Animated progress ring with percentage"
+    },
+    {
+      "name": "Animated Text",
+      "file": "animated-text.tsx",
+      "slug": "animated-text",
+      "category": "Text",
+      "description": "Character-by-character text reveal"
+    },
+    {
+      "name": "Bounce Text",
+      "file": "bounce-text.tsx",
+      "slug": "bounce-text",
+      "category": "Text",
+      "description": "Spring bounce entrance for titles"
+    },
+    {
+      "name": "Bubble Pop Text",
+      "file": "bubble-pop-text.tsx",
+      "slug": "bubble-pop-text",
+      "category": "Text",
+      "description": "Characters pop in inside bubbles"
+    },
+    {
+      "name": "Floating Text Chip",
+      "file": "floating-bubble-text.tsx",
+      "slug": "floating-bubble-text",
+      "category": "Text",
+      "description": "Floating label with sine-wave wobble"
+    },
+    {
+      "name": "Glitch Text",
+      "file": "glitch-text.tsx",
+      "slug": "glitch-text",
+      "category": "Text",
+      "description": "RGB split glitch with decay"
+    },
+    {
+      "name": "Popping Scale Text",
+      "file": "popping-text.tsx",
+      "slug": "popping-text",
+      "category": "Text",
+      "description": "Spring-based scale pop entrance"
+    },
+    {
+      "name": "Pulsing Text",
+      "file": "pulsing-text.tsx",
+      "slug": "pulsing-text",
+      "category": "Text",
+      "description": "Continuous scale pulse for emphasis"
+    },
+    {
+      "name": "Slide Text",
+      "file": "slide-text.tsx",
+      "slug": "slide-text",
+      "category": "Text",
+      "description": "Directional slide-in text"
+    },
+    {
+      "name": "Typewriter Subtitle",
+      "file": "typewriter-subtitle.tsx",
+      "slug": "typewriter-subtitle",
+      "category": "Text",
+      "description": "Character-by-character typing with cursor"
+    },
+    {
+      "name": "Animated List",
+      "file": "animated-list.tsx",
+      "slug": "animated-list",
+      "category": "Content Animation",
+      "description": "Staggered list item entrance"
+    },
+    {
+      "name": "Card Flip",
+      "file": "card-flip.tsx",
+      "slug": "card-flip",
+      "category": "Content Animation",
+      "description": "3D card flip with front/back content"
+    },
+    {
+      "name": "Countdown Timer",
+      "file": "countdown-timer.tsx",
+      "slug": "countdown-timer",
+      "category": "Content Animation",
+      "description": "5-4-3-2-1-GO with spring scale"
+    },
+    {
+      "name": "Notification Pop",
+      "file": "notification-pop.tsx",
+      "slug": "notification-pop",
+      "category": "Content Animation",
+      "description": "Stacking notification toasts"
+    },
+    {
+      "name": "Particle Explosion",
+      "file": "particle-explosion.tsx",
+      "slug": "particle-explosion",
+      "category": "Content Animation",
+      "description": "Burst particles from centre"
+    },
+    {
+      "name": "Progress Steps",
+      "file": "progress-steps.tsx",
+      "slug": "progress-steps",
+      "category": "Content Animation",
+      "description": "Step indicator filling in sequence"
+    },
+    {
+      "name": "Rotating Carousel",
+      "file": "rotating-carousel.tsx",
+      "slug": "rotating-carousel",
+      "category": "Content Animation",
+      "description": "3D rotating card carousel"
+    },
+    {
+      "name": "Sound Wave",
+      "file": "sound-wave.tsx",
+      "slug": "sound-wave",
+      "category": "Content Animation",
+      "description": "Audio waveform bar visualiser"
+    },
+    {
+      "name": "Text Highlight",
+      "file": "text-highlight.tsx",
+      "slug": "text-highlight",
+      "category": "Content Animation",
+      "description": "Sequential word highlighting"
+    },
+    {
+      "name": "Bokeh Circles",
+      "file": "bokeh-circles.tsx",
+      "slug": "bokeh-circles",
+      "category": "Background",
+      "description": "Floating soft circles with drift"
+    },
+    {
+      "name": "Geometric Patterns",
+      "file": "geometric-patterns.tsx",
+      "slug": "geometric-patterns",
+      "category": "Background",
+      "description": "Rotating/scaling geometric shapes"
+    },
+    {
+      "name": "Gradient Shift",
+      "file": "gradient-shift.tsx",
+      "slug": "gradient-shift",
+      "category": "Background",
+      "description": "Slowly shifting ambient gradient"
+    },
+    {
+      "name": "Grid Pulse",
+      "file": "grid-pulse.tsx",
+      "slug": "grid-pulse",
+      "category": "Background",
+      "description": "Dot grid with ripple wave pulse"
+    },
+    {
+      "name": "Liquid Wave",
+      "file": "liquid-wave.tsx",
+      "slug": "liquid-wave",
+      "category": "Background",
+      "description": "Flowing SVG wave shapes"
+    },
+    {
+      "name": "Matrix Rain",
+      "file": "matrix-rain.tsx",
+      "slug": "matrix-rain",
+      "category": "Background",
+      "description": "Falling code rain columns"
+    },
+    {
+      "name": "Noise Grain",
+      "file": "noise-grain.tsx",
+      "slug": "noise-grain",
+      "category": "Background",
+      "description": "Subtle film grain overlay"
+    },
+    {
+      "name": "Pixel Transition",
+      "file": "pixel-transition.tsx",
+      "slug": "pixel-transition",
+      "category": "Background",
+      "description": "Pixelated grid reveal"
+    },
+    {
+      "name": "Starfield",
+      "file": "starfield.tsx",
+      "slug": "starfield",
+      "category": "Background",
+      "description": "Flying-through-space star effect"
+    },
+    {
+      "name": "Camera Shake",
+      "file": "camera-shake.tsx",
+      "slug": "camera-shake",
+      "category": "Cinematic",
+      "description": "Decaying shake for impact moments"
+    },
+    {
+      "name": "Film Burn",
+      "file": "film-burn.tsx",
+      "slug": "film-burn",
+      "category": "Cinematic",
+      "description": "Warm light leak overlay"
+    },
+    {
+      "name": "Ken Burns",
+      "file": "ken-burns.tsx",
+      "slug": "ken-burns",
+      "category": "Cinematic",
+      "description": "Pan and zoom for images"
+    },
+    {
+      "name": "Letterbox Reveal",
+      "file": "letterbox-reveal.tsx",
+      "slug": "letterbox-reveal",
+      "category": "Cinematic",
+      "description": "Black bars retracting to reveal"
+    },
+    {
+      "name": "Parallax Pan",
+      "file": "parallax-pan.tsx",
+      "slug": "parallax-pan",
+      "category": "Cinematic",
+      "description": "Multi-layer parallax scrolling",
+      "requiresAdaptation": "next/image → <img>"
+    },
+    {
+      "name": "Spotlight Reveal",
+      "file": "spotlight-reveal.tsx",
+      "slug": "spotlight-reveal",
+      "category": "Cinematic",
+      "description": "Expanding circle clip-path reveal"
+    },
+    {
+      "name": "Vignette Pulse",
+      "file": "vignette-pulse.tsx",
+      "slug": "vignette-pulse",
+      "category": "Cinematic",
+      "description": "Pulsing darkened edges overlay"
+    },
+    {
+      "name": "Whip Pan",
+      "file": "whip-pan.tsx",
+      "slug": "whip-pan",
+      "category": "Cinematic",
+      "description": "Fast horizontal pan with motion blur"
+    },
+    {
+      "name": "Zoom Pulse",
+      "file": "zoom-pulse.tsx",
+      "slug": "zoom-pulse",
+      "category": "Cinematic",
+      "description": "Rhythmic zoom in/out pulse",
+      "requiresAdaptation": "next/image → <img>"
+    },
+    {
+      "name": "Blinds Transition",
+      "file": "blinds-transition.tsx",
+      "slug": "blinds-transition",
+      "category": "Transition",
+      "description": "Horizontal blinds opening"
+    },
+    {
+      "name": "Clock Wipe",
+      "file": "clock-wipe.tsx",
+      "slug": "clock-wipe",
+      "category": "Transition",
+      "description": "Radial clock-hand sweep"
+    },
+    {
+      "name": "Cross Dissolve",
+      "file": "cross-dissolve.tsx",
+      "slug": "cross-dissolve",
+      "category": "Transition",
+      "description": "Classic cross-fade between scenes"
+    },
+    {
+      "name": "Fade Through Black",
+      "file": "fade-through-black.tsx",
+      "slug": "fade-through-black",
+      "category": "Transition",
+      "description": "Dip to black between scenes"
+    },
+    {
+      "name": "Iris Transition",
+      "file": "iris-transition.tsx",
+      "slug": "iris-transition",
+      "category": "Transition",
+      "description": "Circular iris close/open"
+    },
+    {
+      "name": "Morph Transition",
+      "file": "morph-transition.tsx",
+      "slug": "morph-transition",
+      "category": "Transition",
+      "description": "Scale-and-fade morph"
+    },
+    {
+      "name": "Push Transition",
+      "file": "push-transition.tsx",
+      "slug": "push-transition",
+      "category": "Transition",
+      "description": "New scene pushes old off-screen"
+    },
+    {
+      "name": "Slide Wipe",
+      "file": "slide-wipe.tsx",
+      "slug": "slide-wipe",
+      "category": "Transition",
+      "description": "Spring-driven panel slide"
+    },
+    {
+      "name": "Zoom Through",
+      "file": "zoom-through.tsx",
+      "slug": "zoom-through",
+      "category": "Transition",
+      "description": "Zoom in then zoom out reveal"
+    },
+    {
+      "name": "Logo Blur Reveal",
+      "file": "logo-blur-reveal.tsx",
+      "slug": "logo-blur-reveal",
+      "category": "Logo & Branding",
+      "description": "Focus-pull blur to sharp"
+    },
+    {
+      "name": "Logo Bounce Drop",
+      "file": "logo-bounce-drop.tsx",
+      "slug": "logo-bounce-drop",
+      "category": "Logo & Branding",
+      "description": "Drop from above with bounce"
+    },
+    {
+      "name": "Logo Fade Reveal",
+      "file": "logo-fade-reveal.tsx",
+      "slug": "logo-fade-reveal",
+      "category": "Logo & Branding",
+      "description": "Fade in with subtle scale-up"
+    },
+    {
+      "name": "Logo Glitch Reveal",
+      "file": "logo-glitch-reveal.tsx",
+      "slug": "logo-glitch-reveal",
+      "category": "Logo & Branding",
+      "description": "RGB split glitch decaying to clean"
+    },
+    {
+      "name": "Logo Scale Rotate",
+      "file": "logo-scale-rotate.tsx",
+      "slug": "logo-scale-rotate",
+      "category": "Logo & Branding",
+      "description": "Spinning scale entrance"
+    },
+    {
+      "name": "Logo Spin Reveal",
+      "file": "logo-spin-reveal.tsx",
+      "slug": "logo-spin-reveal",
+      "category": "Logo & Branding",
+      "description": "3D Y-axis spin reveal"
+    },
+    {
+      "name": "Logo Split Reveal",
+      "file": "logo-split-reveal.tsx",
+      "slug": "logo-split-reveal",
+      "category": "Logo & Branding",
+      "description": "Left/right halves expanding"
+    },
+    {
+      "name": "Logo Stroke Draw",
+      "file": "logo-stroke-draw.tsx",
+      "slug": "logo-stroke-draw",
+      "category": "Logo & Branding",
+      "description": "SVG stroke drawing animation"
+    },
+    {
+      "name": "Logo Typewriter",
+      "file": "logo-typewriter.tsx",
+      "slug": "logo-typewriter",
+      "category": "Logo & Branding",
+      "description": "Icon + typed company name"
+    },
+    {
+      "name": "Chapter Title",
+      "file": "chapter-title.tsx",
+      "slug": "chapter-title",
+      "category": "Intro & Outro",
+      "description": "Chapter number with extending lines"
+    },
+    {
+      "name": "Cinematic Title Intro",
+      "file": "cinematic-title-intro.tsx",
+      "slug": "cinematic-title-intro",
+      "category": "Intro & Outro",
+      "description": "Title spring-in with growing underline"
+    },
+    {
+      "name": "Countdown Intro",
+      "file": "countdown-intro.tsx",
+      "slug": "countdown-intro",
+      "category": "Intro & Outro",
+      "description": "Ring countdown 3-2-1-GO"
+    },
+    {
+      "name": "Credits Roll",
+      "file": "credits-roll.tsx",
+      "slug": "credits-roll",
+      "category": "Intro & Outro",
+      "description": "Scrolling movie-style credits"
+    },
+    {
+      "name": "End Card",
+      "file": "end-card.tsx",
+      "slug": "end-card",
+      "category": "Intro & Outro",
+      "description": "Outro with subscribe CTA"
+    },
+    {
+      "name": "Lower Third",
+      "file": "lower-third.tsx",
+      "slug": "lower-third",
+      "category": "Intro & Outro",
+      "description": "News-style name/title bar"
+    },
+    {
+      "name": "Quote Card",
+      "file": "quote-card.tsx",
+      "slug": "quote-card",
+      "category": "Intro & Outro",
+      "description": "Animated quotation with attribution"
+    },
+    {
+      "name": "Subscribe Reminder",
+      "file": "subscribe-reminder.tsx",
+      "slug": "subscribe-reminder",
+      "category": "Intro & Outro",
+      "description": "Floating subscribe overlay"
+    },
+    {
+      "name": "Title Split",
+      "file": "title-split.tsx",
+      "slug": "title-split",
+      "category": "Intro & Outro",
+      "description": "Split text meeting in centre"
+    },
+    {
+      "name": "Gallery Grid",
+      "file": "gallery-grid.tsx",
+      "slug": "gallery-grid",
+      "category": "Image & Media",
+      "description": "Staggered 2x3 grid reveal"
+    },
+    {
+      "name": "Image Carousel",
+      "file": "image-carousel.tsx",
+      "slug": "image-carousel",
+      "category": "Image & Media",
+      "description": "Horizontal sliding with centre focus"
+    },
+    {
+      "name": "Image Comparison Slider",
+      "file": "image-comparison-slider.tsx",
+      "slug": "image-comparison-slider",
+      "category": "Image & Media",
+      "description": "Before/after sliding divider"
+    },
+    {
+      "name": "Image Zoom Reveal",
+      "file": "image-zoom-reveal.tsx",
+      "slug": "image-zoom-reveal",
+      "category": "Image & Media",
+      "description": "Zoom-out focus-pull reveal"
+    },
+    {
+      "name": "Masonry Gallery",
+      "file": "masonry-gallery.tsx",
+      "slug": "masonry-gallery",
+      "category": "Image & Media",
+      "description": "Pinterest-style staggered grid"
+    },
+    {
+      "name": "Photo Stack",
+      "file": "photo-stack.tsx",
+      "slug": "photo-stack",
+      "category": "Image & Media",
+      "description": "Overlapping frames with rotation"
+    },
+    {
+      "name": "Picture in Picture",
+      "file": "picture-in-picture.tsx",
+      "slug": "picture-in-picture",
+      "category": "Image & Media",
+      "description": "PiP overlay layout"
+    },
+    {
+      "name": "Polaroid Frame",
+      "file": "polaroid-frame.tsx",
+      "slug": "polaroid-frame",
+      "category": "Image & Media",
+      "description": "Polaroid-style photo with drop-in"
+    },
+    {
+      "name": "Split Screen",
+      "file": "split-screen.tsx",
+      "slug": "split-screen",
+      "category": "Image & Media",
+      "description": "Two panels sliding to meet"
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 | `hyperframes-cli` | https://github.com/heygen-com/hyperframes | `0.9.13` |
 | `hyperframes-registry` | https://github.com/heygen-com/hyperframes | `0.9.13` |
 | `media-use` | https://github.com/heygen-com/hyperframes | `0.9.13` |
+| `remotion-templates` | https://github.com/reactvideoeditor/remotion-templates | `6209b724798e48ff395f8df1a6fa2d26082372b5` |
 
 ## Что вырезано при вендоринге
 
@@ -27,6 +28,12 @@
 
 **hyperframes** — никакого кода в репозитории нет: движок ставится как npm-пакет `hyperframes`,
 а скиллы скопированы из установленного пакета той же версии.
+
+**remotion-templates** — ничего не вырезано: все 81 компонент лежат как есть (`components/*.tsx`,
+байт в байт из upstream). Добавлены только `SKILL.md`, `catalog.json`, `LICENSE` и `NOTICE.md` —
+MIT требует сохранять копирайт при распространении. Два файла (`parallax-pan.tsx`,
+`zoom-pulse.tsx`) импортируют `next/image` и в чистом Remotion-проекте требуют замены на `<img>`;
+это отмечено в `catalog.json` (`requiresAdaptation`) и в `SKILL.md`.
 
 ## Обновить
 

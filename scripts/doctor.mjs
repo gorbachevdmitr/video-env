@@ -22,6 +22,7 @@ const SKILLS = [
   "ffmpeg-skill",
   "brag",
   "brag-slim",
+  "remotion-templates",
 ];
 const FFMPEG_FILTERS = ["drawtext", "subtitles", "loudnorm", "xfade", "overlay", "amix"];
 

@@ -12,6 +12,7 @@
     "check": "node scripts/check.mjs",
     "render": "node scripts/render.mjs",
     "new": "node scripts/new-video.mjs",
+    "component": "node scripts/add-component.mjs",
     "smoke": "node scripts/smoke.mjs",
     "bootstrap": "bash scripts/bootstrap.sh"
   },

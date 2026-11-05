@@ -74,18 +74,43 @@ async function checkRemotion(project, manifest, problems) {
   }
 
   const root = ["src/Root.tsx", "src/Root.ts"].map((f) => path.join(project.dir, f)).find(existsSync);
-  if (root && typeof manifest.duration === "number") {
-    const src = await readFile(root, "utf8");
-    const fps = Number(src.match(/fps=\{(\d+)\}/)?.[1] ?? 0);
-    const frames = Number(src.match(/durationInFrames=\{(\d+)\}/)?.[1] ?? 0);
-    if (fps && frames) {
-      const declared = Number((frames / fps).toFixed(2));
-      const drift = Number((declared - manifest.duration).toFixed(2));
-      if (Math.abs(drift) > 0.05) {
-        problems.push(`Composition is ${declared}s (${frames}/${fps}) but video.json says ${manifest.duration}s`);
-      } else {
-        console.log(`  ✓ duration ${declared}s matches video.json`);
-      }
+  if (!root) return;
+
+  const src = await readFile(root, "utf8");
+  // Only the <Composition> element counts: a <Sequence> has the same props and would confuse a
+  // file-wide regex.
+  const comp = src.match(/<Composition[\s\S]*?\/>/)?.[0];
+  if (!comp) {
+    console.log("  ! no <Composition … /> found in Root — duration not verified");
+    return;
+  }
+
+  const num = (prop) => {
+    const m = comp.match(new RegExp(`${prop}=\\{(\\d+)\\}`));
+    return m ? Number(m[1]) : null;
+  };
+  const fps = num("fps");
+  const frames = num("durationInFrames");
+  const width = num("width");
+  const height = num("height");
+
+  if (fps && frames) {
+    const declared = Number((frames / fps).toFixed(2));
+    const drift = Number((declared - manifest.duration).toFixed(2));
+    if (Math.abs(drift) > 0.05) {
+      problems.push(`Composition is ${declared}s (${frames}/${fps}) but video.json says ${manifest.duration}s`);
+    } else {
+      console.log(`  ✓ duration ${declared}s matches video.json`);
+    }
+  } else {
+    console.log("  ! Composition duration is computed, not a literal — skipped the check");
+  }
+
+  if (width && height && manifest.width && manifest.height) {
+    if (width !== manifest.width || height !== manifest.height) {
+      problems.push(`Composition is ${width}x${height} but video.json says ${manifest.width}x${manifest.height}`);
+    } else {
+      console.log(`  ✓ size ${width}x${height} matches video.json`);
     }
   }
 }

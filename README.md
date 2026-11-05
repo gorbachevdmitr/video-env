@@ -16,7 +16,7 @@ ChatGPT / Codex Web                    GitHub                     RunPod
 └──────────────────────┘            └──────────┘            └────────────────────┘
 ```
 
-## Четыре репозитория — одна среда
+## Пять репозиториев — одна среда
 
 | Источник | Роль в среде | Как встроен |
 | --- | --- | --- |
@@ -24,6 +24,7 @@ ChatGPT / Codex Web                    GitHub                     RunPod
 | [latent-spaces/brag](https://github.com/latent-spaces/brag) | Скилл сторителлинга: превращает продукт/репо в короткий launch-ролик | Вендорен в `.agents/skills/brag` и `brag-slim` (вместе с CC-музыкой и SFX) |
 | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | Движок №1: HTML + seekable-анимация → MP4, кадр в кадр | npm-пакет `hyperframes@0.9.13` + 4 скилла в `.agents/skills` |
 | [remotion-dev/remotion](https://github.com/remotion-dev/remotion) | Движок №2: React-композиции, генерация из данных | npm-пакеты `remotion` и `@remotion/cli` + рабочий шаблон |
+| [reactvideoeditor/remotion-templates](https://github.com/reactvideoeditor/remotion-templates) | 81 готовый компонент (MIT): графики, счётчики, титры, переходы, фоны, логотипы | Вендорен в `.agents/skills/remotion-templates` + `scripts/add-component.mjs` |
 
 Почему не git submodule: поду и облаку нужен один `git clone` без рекурсии и без прав на чужие
 репозитории. Поэтому скиллы лежат копиями (их SHA зафиксированы в [docs/VENDOR.md](docs/VENDOR.md)),
@@ -34,6 +35,7 @@ ChatGPT / Codex Web                    GitHub                     RunPod
 - «Сделай 15-секундный ролик про мой продукт» → скилл `brag` → HyperFrames.
 - «Объяснялка с графиком и титрами» → скилл `hyperframes` → HyperFrames.
 - «Сгенерируй 20 вариантов из CSV» → Remotion.
+- «Нужен счётчик цифр, лоуэр-сёрд и переход» → Remotion + `scripts/add-component.mjs` (81 готовый компонент).
 - «Нарежь это интервью, убери паузы, сделай вертикаль под Reels» → `ffmpeg-skill`.
 - «Проверь готовый mp4 и выгрузи под TikTok» → `ffmpeg-skill` (`check.py`, `export.py`).
 
@@ -46,12 +48,12 @@ cd video-env
 git init -b main
 git add -A
 git commit -m "video-env: initial environment"
-git remote add origin https://github.com/<вы>/video-env.git
+git remote add origin https://github.com/gorbachevdmitr/video-env.git
 git push -u origin main
 ```
 
-Репозиторий весит ~20 МБ: внутри вендоренные скиллы, музыка и SFX. `node_modules/`, `out/` и `.bin/`
-в git не попадают — они ставятся командами ниже.
+Репозиторий весит ~21 МБ: внутри вендоренные скиллы, 81 Remotion-компонент, музыка и SFX.
+`node_modules/`, `out/` и `.bin/` в git не попадают — они ставятся командами ниже.
 
 ### 2. Подключить в ChatGPT / Codex Web
 
@@ -85,7 +87,7 @@ git push -u origin main
 Коротко (подробно — [docs/RUNPOD.md](docs/RUNPOD.md)):
 
 ```bash
-git clone https://github.com/<вы>/video-env.git && cd video-env
+git clone https://github.com/gorbachevdmitr/video-env.git && cd video-env
 bash scripts/bootstrap.sh          # ~4-6 минут, один раз на поде
 node scripts/render.mjs --all      # -> out/<slug>.mp4 + contact sheet
 runpodctl send out/<slug>.mp4      # код -> runpodctl receive <код> дома
@@ -109,6 +111,7 @@ node scripts/smoke.mjs
 | `videos/hello` (HyperFrames, 5 с, 1080p30) | `check`: 0 ошибок; рендер 26 с на 4-ядерном ноутбуке |
 | `videos/hello-remotion` (Remotion, 5 с) | `tsc --noEmit` чисто; рендер 14 с в 540p |
 | `templates/hyperframes` (3 сцены, 12 с) | `check`: 0 ошибок, 0 предупреждений; рендер 44 с |
+| `remotion-templates` (81 компонент) | `stat-counter` + `lower-third` подключены и отрендерены: `tsc` чисто, кадр верный |
 | `ffmpeg-skill` (`probe.py`, `look.py`) | работают на Python 3.14 и на результате рендера |
 | Чистый `git clone` + `npm ci` + `node scripts/smoke.mjs` | проходит без локальных артефактов |
 
@@ -120,7 +123,7 @@ node scripts/smoke.mjs
 | `videos/<slug>/` | Ролики: композиция + `video.json` (манифест рендера) |
 | `templates/hyperframes/` | Скелет HTML-ролика: 3 сцены, титры, бренд-переменные |
 | `templates/remotion/` | Скелет React-ролика |
-| `.agents/skills/` | Вендоренные скиллы (7 штук) |
+| `.agents/skills/` | Вендоренные скиллы (8 штук, включая 81 Remotion-компонент) |
 | `scripts/` | `bootstrap`, `doctor`, `check`, `render`, `new-video`, `smoke` |
 | `docs/` | [RunPod-рецепт](docs/RUNPOD.md), [промпты](docs/PROMPTS.md), [учёт вендоренных версий](docs/VENDOR.md) |
 | `out/` | Результаты рендера (в git не попадает) |

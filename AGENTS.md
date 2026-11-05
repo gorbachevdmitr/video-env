@@ -24,8 +24,8 @@
 | `videos/<slug>/` | Ролики. `video.json` — манифест, по нему рендерит под |
 | `templates/hyperframes/` | Рабочий скелет HTML-ролика (3 сцены, титры, переменные) |
 | `templates/remotion/` | Рабочий скелет React-ролика |
-| `.agents/skills/` | Вендоренные скиллы: `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `ffmpeg-skill`, `brag`, `brag-slim` |
-| `scripts/` | `doctor`, `check`, `render`, `new-video`, `bootstrap` |
+| `.agents/skills/` | Вендоренные скиллы: `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `ffmpeg-skill`, `brag`, `brag-slim`, `remotion-templates` |
+| `scripts/` | `doctor`, `check`, `render`, `new-video`, `add-component`, `bootstrap` |
 | `assets/` | Общие материалы: музыка, шрифты, логотипы |
 | `out/` | Результаты рендера (в git не попадает) |
 | `docs/RUNPOD.md` | Как пользователь рендерит и забирает файл |
@@ -36,11 +36,15 @@
 | --- | --- | --- |
 | Промо, запуск продукта, «сделай ролик про этот репозиторий» | HyperFrames + скилл `brag` | `.agents/skills/brag/SKILL.md` |
 | Моушн-графика, объяснялка, титры, графики, карты, кинетическая типографика | HyperFrames | `.agents/skills/hyperframes/SKILL.md` |
-| Регулярная генерация из данных, React-композиции, переиспользуемые шаблоны, точный контроль кадров | Remotion | этот файл, раздел 5 |
+| Регулярная генерация из данных, React-композиции, переиспользуемые шаблоны, точный контроль кадров | Remotion + готовые анимации | `.agents/skills/remotion-templates/SKILL.md` |
 | Резка, склейка, субтитры, нормализация громкости, вертикальный кроп, выгрузка под платформу | ffmpeg-skill (пост-продакшн) | `.agents/skills/ffmpeg-skill/SKILL.md` |
 
 Правило: **сначала `SKILL.md` выбранного движка, потом код.** Скиллы содержат контракт рендера,
 которого нет в обычной веб-документации; без них композиция проходит глазами и падает на рендере.
+
+Нужен типовой визуальный приём — график, счётчик, лоуэр-сёрд, переход, фон, логотип-ревил?
+В Remotion сначала `node scripts/add-component.mjs --list` (81 готовый MIT-компонент), а не пиши
+с нуля. В HyperFrames — `npx hyperframes add` и `hyperframes-registry`.
 
 `ffmpeg-skill` — не движок анимации, а руки: он режет, кропает, чистит звук, жмёт под платформу.
 Он же — финальный контроль качества любого результата (`probe.py`, `check.py`, `look.py`).
@@ -72,6 +76,7 @@ node ../../scripts/render.mjs my-slug --quality draft   # 540p, проверка
 ```bash
 node scripts/new-video.mjs my-slug --engine remotion --title "My Film"
 cd videos/my-slug
+node ../../scripts/add-component.mjs my-slug stat-counter   # если нужен готовый приём
 npx tsc --noEmit                      # типы
 npx remotion render src/index.ts Hello ../../out/my-slug-draft.mp4 --scale=0.5
 ```
@@ -79,6 +84,10 @@ npx remotion render src/index.ts Hello ../../out/my-slug-draft.mp4 --scale=0.5
 Каркас: `src/index.ts` → `registerRoot`, `src/Root.tsx` → `<Composition>`, `src/<Name>.tsx` → кадр.
 Длительность, fps и размер живут в `Root.tsx` и обязаны совпадать с `video.json`.
 Для статичного кадра-проверки: `npx remotion still src/index.ts Hello ../../out/still.png --frame=45`.
+
+Готовые компоненты (`stat-counter`, `lower-third`, `cross-dissolve`, `starfield`, …) — заготовки без
+пропсов: после копирования переписать текст, цифры и палитру, сохранив математику кадров. Два файла
+(`parallax-pan`, `zoom-pulse`) тянут `next/image` — заменить на `<img>`.
 
 ## 6. Манифест `video.json`
 
