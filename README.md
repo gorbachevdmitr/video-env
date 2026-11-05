@@ -57,18 +57,15 @@ git push -u origin main
 
 ### 2. Подключить в ChatGPT / Codex Web
 
-В Codex → **Environments** → **Create environment**:
+1. Новая задача → **Work in** → **Cloud** → **Select environment** → **Create environment**
+   (или **Settings → Codex Cloud → Environments → Create environment**).
+2. Выбрать репозиторий `video-env`, при необходимости подключить GitHub.
+3. **Install script**: `bash scripts/bootstrap.sh` — ставит Node 22, статический FFmpeg 6.1+,
+   библиотеки Chrome, `npm ci` и оба браузера. Идемпотентен.
+4. Сеть: на время установки нужны `nodejs.org`, `storage.googleapis.com`, npm и GitHub.
+5. **Publish** — и только после этого окружение доступно задачам.
 
-1. Репозиторий: `<вы>/video-env`.
-2. **Setup script**: `bash scripts/bootstrap.sh`
-   Скрипт ставит Node 22, статический FFmpeg 6.1+, библиотеки для headless Chrome, `npm ci`
-   и оба браузера. Идемпотентен: повторный запуск ничего не ломает.
-3. Переменные окружения — не обязательны. Если рендер будете запускать и в облаке тоже,
-   добавьте `HYPERFRAMES_TELEMETRY=0`.
-
-Если в облаке запрещён сетевой доступ на уровне allowlist, разрешите:
-`registry.npmjs.org`, `nodejs.org`, `github.com` (релизы FFmpeg), `storage.googleapis.com`
-(сборки Chrome), `cdn.playwright.dev`.
+Полная пошаговая инструкция, чек-лист приёмки и разбор падений — [docs/CODEX.md](docs/CODEX.md).
 
 ### 3. Попросить ролик
 
@@ -127,7 +124,7 @@ node scripts/smoke.mjs
 | `templates/remotion/` | Скелет React-ролика |
 | `.agents/skills/` | Вендоренные скиллы (8 штук, включая 81 Remotion-компонент) |
 | `scripts/` | `bootstrap`, `doctor`, `check`, `render`, `new-video`, `smoke` |
-| `docs/` | [RunPod-рецепт](docs/RUNPOD.md), [промпты](docs/PROMPTS.md), [учёт вендоренных версий](docs/VENDOR.md) |
+| `docs/` | [Codex Cloud](docs/CODEX.md), [RunPod-рецепт](docs/RUNPOD.md), [промпты](docs/PROMPTS.md), [учёт вендоренных версий](docs/VENDOR.md) |
 | `out/` | Результаты рендера (в git не попадает) |
 
 ## Как проверяется, что ролик готов
