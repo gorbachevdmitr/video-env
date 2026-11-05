@@ -74,9 +74,21 @@ else
 fi
 
 # ------------------------------------------------------- system libraries ---
+APT_FAILED=0
 if command -v apt-get >/dev/null 2>&1; then
   log "Installing headless-Chrome runtime libraries (missing ones only)"
-  $SUDO apt-get update -qq >/dev/null 2>&1 || warn "apt-get update failed, continuing"
+  if $SUDO apt-get update -qq >/dev/null 2>&1; then
+    log "apt-get update ok"
+  else
+    APT_FAILED=1
+    warn "apt-get update failed — continuing without system packages"
+    if [[ "$(id -u)" -ne 0 && -z "$SUDO" ]]; then
+      warn "  cause: not root and no sudo here, so Chrome's libraries cannot be installed"
+    else
+      warn "  cause: package repositories unreachable — check access to archive.ubuntu.com"
+    fi
+    warn "  if Chrome turns out to be broken, the final doctor run will say so"
+  fi
   # Both the pre-24.04 and the 24.04 (t64) package names are listed; failures are tolerated.
   PACKAGES=(
     ca-certificates curl git python3 xz-utils
@@ -90,6 +102,7 @@ if command -v apt-get >/dev/null 2>&1; then
     $SUDO apt-get install -y -qq "$p" >/dev/null 2>&1 || true
   done
 else
+  APT_FAILED=1
   warn "no apt-get: make sure Chrome's shared libraries are present another way"
 fi
 
@@ -118,7 +131,18 @@ EOF
 grep -qs ".bin/env.sh" "$HOME/.bashrc" 2>/dev/null || echo "[ -f \"$BIN_DIR/env.sh\" ] && . \"$BIN_DIR/env.sh\"" >> "$HOME/.bashrc"
 
 log "Doctor"
-node scripts/doctor.mjs || true
+DOCTOR_OUT="$(node scripts/doctor.mjs 2>&1 || true)"
+printf '%s\n' "$DOCTOR_OUT"
+
+if printf '%s\n' "$DOCTOR_OUT" | grep -q '! chrome'; then
+  warn "Chrome is present but cannot start — almost always missing shared libraries."
+  warn "Find them with:"
+  warn "  find ~/.cache/hyperframes -name 'chrome-headless-shell' -type f -exec ldd {} \\; | grep 'not found' | sort -u"
+  if [[ "$APT_FAILED" -eq 1 ]]; then
+    warn "apt-get did not work in this environment, so the libraries were never installed."
+    warn "Either give setup root + network, or use an image that already has them."
+  fi
+fi
 
 cat <<EOF
 
