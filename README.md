@@ -112,6 +112,7 @@ node scripts/smoke.mjs
 | `videos/hello-remotion` (Remotion, 5 с) | `tsc --noEmit` чисто; рендер 14 с в 540p |
 | `templates/hyperframes` (3 сцены, 12 с) | `check`: 0 ошибок, 0 предупреждений; рендер 44 с |
 | `remotion-templates` (81 компонент) | `stat-counter` + `lower-third` подключены и отрендерены: `tsc` чисто, кадр верный |
+| `videos/showcase` (15 с, 5 компонентов) | `check` 1/1, черновой рендер 26 с, контактный лист сходится с раскадровкой |
 | `ffmpeg-skill` (`probe.py`, `look.py`) | работают на Python 3.14 и на результате рендера |
 | Чистый `git clone` + `npm ci` + `node scripts/smoke.mjs` | проходит без локальных артефактов |
 
@@ -121,6 +122,7 @@ node scripts/smoke.mjs
 | --- | --- |
 | `AGENTS.md` | Контракт для агента: какой движок, какой цикл, что нельзя |
 | `videos/<slug>/` | Ролики: композиция + `video.json` (манифест рендера) |
+| `videos/showcase/` | Эталон Remotion-ролика: 5 компонентов, один бренд, фейды между сценами |
 | `templates/hyperframes/` | Скелет HTML-ролика: 3 сцены, титры, бренд-переменные |
 | `templates/remotion/` | Скелет React-ролика |
 | `.agents/skills/` | Вендоренные скиллы (8 штук, включая 81 Remotion-компонент) |

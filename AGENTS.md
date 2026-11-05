@@ -22,6 +22,7 @@
 | Путь | Что это |
 | --- | --- |
 | `videos/<slug>/` | Ролики. `video.json` — манифест, по нему рендерит под |
+| `videos/showcase/` | **Эталон Remotion-ролика**: пять компонентов, один бренд, фейды. Смотри его перед первой сборкой |
 | `templates/hyperframes/` | Рабочий скелет HTML-ролика (3 сцены, титры, переменные) |
 | `templates/remotion/` | Рабочий скелет React-ролика |
 | `.agents/skills/` | Вендоренные скиллы: `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `ffmpeg-skill`, `brag`, `brag-slim`, `remotion-templates` |
@@ -88,6 +89,10 @@ npx remotion render src/index.ts Hello ../../out/my-slug-draft.mp4 --scale=0.5
 Готовые компоненты (`stat-counter`, `lower-third`, `cross-dissolve`, `starfield`, …) — заготовки без
 пропсов: после копирования переписать текст, цифры и палитру, сохранив математику кадров. Два файла
 (`parallax-pan`, `zoom-pulse`) тянут `next/image` — заменить на `<img>`.
+
+Перед первой сборкой прочитай `videos/showcase/`: там пять компонентов уже сведены в один ролик —
+`src/Root.tsx` показывает слои и фейды, а шапка каждого файла в `src/components/` говорит, что
+сохранено от оригинала, а что переписано.
 
 ## 6. Манифест `video.json`
 
