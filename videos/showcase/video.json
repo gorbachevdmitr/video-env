@@ -10,5 +10,5 @@
   "fps": 30,
   "audio": true,
   "quality": "looks",
-  "notes": "Reference composition: five vendored components adapted to one brand, cut to a 109.96 BPM track (see public/music/CREDITS.md)."
+  "notes": "Reference composition: five vendored components adapted to one brand, cut to a 109.96 BPM track (see MUSIC-CREDITS.md)."
 }
