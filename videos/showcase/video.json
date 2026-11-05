@@ -8,7 +8,7 @@
   "width": 1920,
   "height": 1080,
   "fps": 30,
-  "audio": false,
+  "audio": true,
   "quality": "looks",
-  "notes": "Reference composition: five vendored components adapted to one brand and layered with fades. Silent on purpose."
+  "notes": "Reference composition: five vendored components adapted to one brand, cut to a 109.96 BPM track (see public/music/CREDITS.md)."
 }

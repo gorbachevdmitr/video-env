@@ -85,9 +85,17 @@ async function checkRemotion(project, manifest, problems) {
     return;
   }
 
+  const consts = new Map();
+  for (const m of src.matchAll(/const\s+([A-Z][A-Z0-9_]*)\s*=\s*(\d+)\s*;/g)) {
+    consts.set(m[1], Number(m[2]));
+  }
+
   const num = (prop) => {
-    const m = comp.match(new RegExp(`${prop}=\\{(\\d+)\\}`));
-    return m ? Number(m[1]) : null;
+    const m = comp.match(new RegExp(`${prop}=\\{(\\w+)\\}`));
+    if (!m) return null;
+    if (/^\d+$/.test(m[1])) return Number(m[1]);
+    // Allow `const TOTAL_FRAMES = 450;` at the top of Root.tsx — common and readable.
+    return consts.get(m[1]) ?? null;
   };
   const fps = num("fps");
   const frames = num("durationInFrames");
