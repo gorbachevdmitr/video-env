@@ -1,0 +1,30 @@
+{
+  "name": "video-env",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-contained video production environment for coding agents: HyperFrames + Remotion + ffmpeg-skill + brag. Author in the cloud, render on a pod.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "doctor": "node scripts/doctor.mjs",
+    "check": "node scripts/check.mjs",
+    "render": "node scripts/render.mjs",
+    "new": "node scripts/new-video.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "bootstrap": "bash scripts/bootstrap.sh"
+  },
+  "dependencies": {
+    "hyperframes": "0.9.13",
+    "remotion": "4.0.540",
+    "@remotion/cli": "4.0.540",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "typescript": "5.7.2"
+  }
+}

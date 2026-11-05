@@ -1,0 +1,12 @@
+{
+  "slug": "hello",
+  "title": "Hello, video-env",
+  "engine": "hyperframes",
+  "duration": 5,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": false,
+  "quality": "draft",
+  "notes": "Smoke test: the smallest composition that proves HTML -> MP4 works end to end."
+}

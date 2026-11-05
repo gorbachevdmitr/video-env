@@ -1,0 +1,14 @@
+{
+  "slug": "hello-remotion",
+  "title": "Hello, Remotion",
+  "engine": "remotion",
+  "entry": "src/index.ts",
+  "composition": "Hello",
+  "duration": 5,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": false,
+  "quality": "looks",
+  "notes": "Skeleton: one composition, spring entrance, CSS-free frame math."
+}

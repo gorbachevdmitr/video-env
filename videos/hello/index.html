@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Hello</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0b0c10;
+        --ink: #f5f6f8;
+        --muted: #9aa3b2;
+        --accent: #ffd166;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        background: var(--ground);
+      }
+      /* One full-frame clip holds the layout; the text inside it is animated, not timed. */
+      #content {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        padding: 0 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #title {
+        color: var(--ink);
+        font-size: 132px;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -0.045em;
+      }
+      #rule {
+        height: 2px;
+        width: 220px;
+        background: var(--accent);
+        margin: 40px 0 32px;
+        transform-origin: left center;
+      }
+      #subtitle {
+        color: var(--muted);
+        font-size: 34px;
+        letter-spacing: 0.04em;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="5"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="content" class="clip" data-start="0" data-duration="5" data-track-index="0">
+        <h1 id="title">Hello, video-env</h1>
+        <div id="rule"></div>
+        <p id="subtitle">Authored in the cloud. Rendered on a pod.</p>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo("#title", { y: 48 }, { y: 0, duration: 0.9, ease: "power3.out" }, 0);
+        tl.fromTo("#rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, 0.6);
+        tl.to("#subtitle", { opacity: 1, duration: 0.6, ease: "power2.out" }, 1.0);
+        tl.to("#content", { opacity: 0, duration: 0.4, ease: "power1.in" }, 4.5);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

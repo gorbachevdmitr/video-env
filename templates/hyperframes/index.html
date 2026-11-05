@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>{{TITLE}}</title>
+    <!-- Local GSAP: never load a CDN inside a composition, renders must be offline-deterministic. -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* Brand variables. Scenes read these, so a rebrand is one edit here. */
+      :root {
+        --ground: #0b0c10;
+        --ink: #f5f6f8;
+        --muted: #9aa3b2;
+        --accent: #ffd166;
+        --font-display: sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-display);
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="12"
+      data-width="1920"
+      data-height="1080"
+      data-composition-variables='[
+        {"id":"title","type":"string","label":"Film title","default":"{{TITLE}}"},
+        {"id":"kicker","type":"string","label":"Kicker","default":"SCENE ONE"},
+        {"id":"row-1","type":"string","label":"Row 1","default":"Replace with a claim you can show."},
+        {"id":"row-2","type":"string","label":"Row 2","default":"One row, one idea, one beat."},
+        {"id":"row-3","type":"string","label":"Row 3","default":"The last row lands on a real number."},
+        {"id":"wordmark","type":"string","label":"Wordmark","default":"{{TITLE}}"},
+        {"id":"url","type":"string","label":"URL","default":"example.com"},
+        {"id":"caption-1","type":"string","label":"First caption","default":"One idea per line."}
+      ]'
+    >
+      <!-- Scene 1: 0 - 2.5 s -->
+      <div
+        id="scene-1"
+        class="scene"
+        data-composition-id="scene-1-intro"
+        data-composition-src="compositions/scene-1-intro.html"
+        data-start="0"
+        data-duration="2.5"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 2: 2.5 - 9 s -->
+      <div
+        id="scene-2"
+        class="scene"
+        data-composition-id="scene-2-body"
+        data-composition-src="compositions/scene-2-body.html"
+        data-start="2.5"
+        data-duration="6.5"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Scene 3: 9 - 12 s -->
+      <div
+        id="scene-3"
+        class="scene"
+        data-composition-id="scene-3-outro"
+        data-composition-src="compositions/scene-3-outro.html"
+        data-start="9"
+        data-duration="3"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- Captions: one host for every caption group. -->
+      <div
+        id="captions-comp"
+        data-track-kind="captions"
+        data-composition-id="captions"
+        data-start="2.5"
+        data-duration="6.5"
+        data-track-index="2"
+        data-width="1920"
+        data-height="1080"
+      >
+        <div class="caption-wrap">
+          <div id="caption-line" class="caption-line" data-var-text="caption-1">Replace this line.</div>
+        </div>
+
+        <style>
+          .caption-wrap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 140px;
+            display: flex;
+            justify-content: center;
+            padding: 0 64px;
+            pointer-events: none;
+          }
+          .caption-line {
+            color: var(--ink);
+            font-size: 46px;
+            line-height: 1.25;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            text-align: center;
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+            opacity: 0;
+          }
+        </style>
+
+        <script>
+          (function () {
+            const line = document.querySelector("#caption-line");
+            const tl = gsap.timeline({ paused: true });
+
+            const captions = [
+              [0.4, 2.4, "One idea per line."],
+              [2.6, 4.6, "Captions ride their own track."],
+              [4.8, 6.3, "Edit the copy, not the timing."],
+            ];
+
+            for (const [start, end, text] of captions) {
+              tl.set(line, { innerText: text }, start);
+              tl.to(line, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, start);
+              tl.to(line, { opacity: 0, duration: 0.2, ease: "power2.in" }, Math.max(start, end - 0.2));
+            }
+
+            window.__timelines = window.__timelines || {};
+            window.__timelines["captions"] = tl;
+          })();
+        </script>
+      </div>
+    </div>
+
+    <script>
+      // Root timeline: only whole-film moves live here. Each scene owns its own timeline.
+      window.__timelines = window.__timelines || {};
+      const mainTl = gsap.timeline({ paused: true });
+      mainTl.to("#root", { opacity: 0, duration: 0.25, ease: "power1.in" }, 11.75);
+      window.__timelines["main"] = mainTl;
+    </script>
+  </body>
+</html>

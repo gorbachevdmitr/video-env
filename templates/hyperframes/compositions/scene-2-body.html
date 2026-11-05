@@ -1,0 +1,107 @@
+<template id="scene-2-body-template">
+  <div
+    data-composition-id="scene-2-body"
+    data-width="1920"
+    data-height="1080"
+    data-duration="6.5"
+    data-composition-variables='[
+      {"id":"row-1","type":"string","label":"Row 1","default":"Replace with a claim you can show."},
+      {"id":"row-2","type":"string","label":"Row 2","default":"One row, one idea, one beat."},
+      {"id":"row-3","type":"string","label":"Row 3","default":"The last row lands on a real number."}
+    ]'
+  >
+    <div class="canvas">
+      <div class="rule"></div>
+
+      <div class="rows">
+        <div class="row" id="row-1">
+          <span class="num">01</span>
+          <span class="label" data-var-text="row-1">Replace with a claim you can show.</span>
+        </div>
+        <div class="row" id="row-2">
+          <span class="num">02</span>
+          <span class="label" data-var-text="row-2">One row, one idea, one beat.</span>
+        </div>
+        <div class="row" id="row-3">
+          <span class="num">03</span>
+          <span class="label" data-var-text="row-3">The last row lands on a real number.</span>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene-2-body"] .canvas {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        background-color: var(--ground);
+        overflow: hidden;
+        padding: 0 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 56px;
+      }
+
+      [data-composition-id="scene-2-body"] .rule {
+        height: 2px;
+        width: 100%;
+        background: var(--accent);
+        transform-origin: left center;
+        transform: scaleX(0);
+      }
+
+      [data-composition-id="scene-2-body"] .rows {
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+      }
+
+      [data-composition-id="scene-2-body"] .row {
+        display: flex;
+        align-items: baseline;
+        gap: 40px;
+        opacity: 0;
+      }
+
+      [data-composition-id="scene-2-body"] .num {
+        color: var(--accent);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        font-variant-numeric: tabular-nums;
+        min-width: 88px;
+      }
+
+      [data-composition-id="scene-2-body"] .label {
+        color: var(--ink);
+        font-size: 62px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+    </style>
+
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        const root = '[data-composition-id="scene-2-body"]';
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(root + " .rule", { scaleX: 1, duration: 0.7, ease: "power3.inOut" }, 0.1);
+
+        ["#row-1", "#row-2", "#row-3"].forEach((id, i) => {
+          tl.fromTo(
+            root + " " + id,
+            { opacity: 0, y: 36 },
+            { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
+            0.45 + i * 0.75,
+          );
+        });
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene-2-body"] = tl;
+      })();
+    </script>
+  </div>
+</template>

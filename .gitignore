@@ -1,0 +1,16 @@
+node_modules/
+out/
+.bin/
+.hyperframes/
+tmp/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# Python bytecode (ffmpeg-skill scripts run in place)
+__pycache__/
+*.pyc
+
