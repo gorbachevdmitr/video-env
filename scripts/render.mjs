@@ -156,6 +156,11 @@ async function renderOne(project, opts) {
 
   await mkdir(opts.outDir, { recursive: true });
 
+  // Cloud images ship a Chromium at /usr/bin/chromium; bootstrap exports its path so nothing has
+  // to download a second browser. HyperFrames reads the variable itself, Remotion needs the flag.
+  const sharedBrowser = process.env.HYPERFRAMES_BROWSER_PATH;
+  const hasSharedBrowser = sharedBrowser && existsSync(sharedBrowser);
+
   if (engine === "hyperframes") {
     runTool("hyperframes", ["render", "--quality", quality, "--output", outFile], project.dir);
   } else if (engine === "remotion") {
@@ -163,6 +168,7 @@ async function renderOne(project, opts) {
     const composition = manifest.composition;
     if (!composition) throw new Error(`${slug}: remotion project needs "composition" in video.json`);
     const args = ["render", entry, composition, outFile, `--concurrency=${manifest.concurrency ?? 2}`];
+    if (hasSharedBrowser) args.push(`--browser-executable=${sharedBrowser}`);
     if (quality === "draft") args.push("--scale=0.5");
     else if (quality === "delivery") args.push("--codec=h264", "--crf=16");
     runTool("@remotion/cli", args, project.dir);
