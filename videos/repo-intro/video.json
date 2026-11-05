@@ -1,0 +1,12 @@
+{
+  "slug": "repo-intro",
+  "title": "video-env \u2014 From code to video",
+  "engine": "hyperframes",
+  "duration": 10,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "audio": true,
+  "quality": "looks",
+  "notes": "Three Russian title scenes. Author in the cloud, render on a pod."
+}
