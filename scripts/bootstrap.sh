@@ -46,6 +46,17 @@ fi
 
 export PATH="$BIN_DIR/node/bin:$BIN_DIR:$PATH"
 
+# A bootstrap that only fixes its own process PATH is useless: the very next command in the same
+# run (`node scripts/render.mjs`) cannot find node. As root, link the tools where every later
+# shell sees them; never overwrite something already installed there.
+if [[ "$(id -u)" -eq 0 ]]; then
+  for tool in node npm npx; do
+    if [[ -x "$BIN_DIR/node/bin/$tool" && ! -e "/usr/local/bin/$tool" ]]; then
+      ln -sf "$BIN_DIR/node/bin/$tool" "/usr/local/bin/$tool"
+    fi
+  done
+fi
+
 # --------------------------------------------------------------- FFmpeg 6+ ---
 ffmpeg_major() {
   ffmpeg -version 2>/dev/null | head -1 | sed -E 's/.*version n?([0-9]+)\..*/\1/' || echo 0

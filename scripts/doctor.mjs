@@ -54,11 +54,17 @@ else add("fail", "node", `v${process.versions.node}`, "needs >= 22 — run: bash
 // ---------- FFmpeg ----------
 const ff = sh("ffmpeg", ["-version"]);
 if (ff.code === 0) {
-  const version = firstLine(ff.out).match(/version\s+n?([\d.]+)/)?.[1] ?? "?";
-  const major = Number(version.split(".")[0]);
-  const where = firstLine(ff.out) ? "" : "";
-  if (major >= 6) add("ok", "ffmpeg", `${version}${where}`);
-  else add("fail", "ffmpeg", `${version} is too old`, "needs >= 6.1 — run: bash scripts/bootstrap.sh");
+  // FFmpeg releases print "6.1.1"; its own nightly builds print "N-128406-g1fe6854fd9".
+  const head = firstLine(ff.out);
+  const versionMatch = head.match(/version\s+(?:n|N-)?(\d+)/);
+  const version = versionMatch ? versionMatch[1] : null;
+  const major = version ? Number(version) : NaN;
+  const isDevBuild = /^ffmpeg version \S+/i.test(head) && !version;
+
+  if (major >= 6) add("ok", "ffmpeg", version);
+  else if (isDevBuild) add("ok", "ffmpeg", "nightly build");
+  else if (version) add("fail", "ffmpeg", `${version} is too old`, "needs >= 6.1 — run: bash scripts/bootstrap.sh");
+  else add("warn", "ffmpeg", "version not recognised", "check: ffmpeg -version");
 
   const filters = sh("ffmpeg", ["-hide_banner", "-filters"]).out;
   const missing = FFMPEG_FILTERS.filter((f) => !new RegExp(`\\b${f}\\b`).test(filters));
